@@ -14,12 +14,15 @@ public class MainActivityPresenter {
         this.mainView = mainView;
     }
 
-    public void onStart(){
+    public void onCreate(boolean firstTime){
         EventBus.getDefault().register(this);
-        mainView.showWelcome();
+        if (firstTime){
+            mainView.showWelcome();
+        }
+
     }
 
-    public void onStop(){
+    public void onDestroy(){
         EventBus.getDefault().unregister(this);
     }
 

@@ -3,11 +3,9 @@ package it.moondroid.androidmvp;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-
-import de.greenrobot.event.EventBus;
-import it.moondroid.androidmvp.event.NavigationEvent;
 
 public class MainActivity extends AppCompatActivity implements MainViewInterface {
 
@@ -19,20 +17,20 @@ public class MainActivity extends AppCompatActivity implements MainViewInterface
         setContentView(R.layout.activity_main);
 
         presenter = new MainActivityPresenter(this);
-    }
 
+        if (savedInstanceState == null){
+            presenter.onCreate(true);
+        }else {
+            presenter.onCreate(false);
+        }
+    }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        presenter.onStart();
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.onDestroy();
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        presenter.onStop();
-    }
 
     @Override
     public void showLogin() {

@@ -25,7 +25,7 @@ public class LoginPresenter implements LoginInteractor.OnLoginFinishedListener {
     @Override
     public void onSuccess() {
         loginView.hideProgress();
-        EventBus.getDefault().post(new NavigationEvent(NavigationEvent.Destination.WELCOME));
+        EventBus.getDefault().post(new NavigationEvent(NavigationEvent.Destination.BACK));
     }
 
     @Override

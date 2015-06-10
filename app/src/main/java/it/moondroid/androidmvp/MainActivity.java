@@ -9,52 +9,57 @@ import android.view.MenuItem;
 import de.greenrobot.event.EventBus;
 import it.moondroid.androidmvp.event.NavigationEvent;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MainViewInterface {
+
+    private MainActivityPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        changeFragment(NavigationEvent.Destination.WELCOME);
+        presenter = new MainActivityPresenter(this);
     }
 
 
     @Override
     public void onStart() {
         super.onStart();
-        EventBus.getDefault().register(this);
+        presenter.onStart();
     }
 
     @Override
     public void onStop() {
-        EventBus.getDefault().unregister(this);
         super.onStop();
+        presenter.onStop();
     }
 
-    // This method will be called when a LoginFormEvent is posted
-    public void onEvent(NavigationEvent event){
-        changeFragment(event.destination);
+    @Override
+    public void showLogin() {
+        Fragment fragment = new LoginFragment();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .addToBackStack(null)
+                .commit();
     }
 
+    @Override
+    public void showWelcome() {
+        Fragment fragment = new WelcomeFragment();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .commit();
+    }
 
-    private void changeFragment(NavigationEvent.Destination destination){
-        Fragment fragment = null;
-        switch (destination){
-            case LOGIN_FORM:
-                fragment = new LoginFragment();
-                break;
-            case WELCOME:
-                fragment = new WelcomeFragment();
-                break;
+    @Override
+    public void onBackPressed() {
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0){
+            getSupportFragmentManager().popBackStack();
+        }else {
+            super.onBackPressed();
         }
-        if (fragment != null){
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, fragment)
-                    .commit();
-        }
-
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

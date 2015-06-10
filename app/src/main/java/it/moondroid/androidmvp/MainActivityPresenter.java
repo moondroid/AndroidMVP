@@ -32,6 +32,9 @@ public class MainActivityPresenter {
             case WELCOME:
                 mainView.showWelcome();
                 break;
+            case NOTES_LIST:
+                mainView.showNoteList();
+                break;
             case BACK:
                 mainView.onBackPressed();
                 break;

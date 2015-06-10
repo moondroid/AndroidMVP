@@ -16,7 +16,7 @@ public class WelcomeFragment extends Fragment implements WelcomeViewInterface {
     private WelcomePresenter presenter;
 
     private TextView textViewMessage;
-    private Button buttonLoginLogout;
+    private Button buttonLoginLogout, buttonShowNotes;
 
     public WelcomeFragment() {
     }
@@ -35,6 +35,13 @@ public class WelcomeFragment extends Fragment implements WelcomeViewInterface {
 
         textViewMessage = (TextView)rootView.findViewById(R.id.text_message);
         buttonLoginLogout = (Button)rootView.findViewById(R.id.button_login);
+        buttonShowNotes = (Button)rootView.findViewById(R.id.button_show_notes);
+        buttonShowNotes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                presenter.doShowNotes();
+            }
+        });
 
         presenter.checkLoggedState();
 
@@ -44,11 +51,13 @@ public class WelcomeFragment extends Fragment implements WelcomeViewInterface {
     @Override
     public void showLoggedUser(String username) {
         textViewMessage.setText(String.format("Welcome %s!", username));
+        buttonShowNotes.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void showAnonymousUser() {
         textViewMessage.setText("Hello, anonymous!");
+        buttonShowNotes.setVisibility(View.GONE);
     }
 
     @Override

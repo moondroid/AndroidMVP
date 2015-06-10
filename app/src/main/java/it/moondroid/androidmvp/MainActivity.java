@@ -52,6 +52,15 @@ public class MainActivity extends AppCompatActivity implements MainViewInterface
     }
 
     @Override
+    public void showNoteList() {
+        Fragment fragment = new NoteListFragment();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .addToBackStack(null)
+                .commit();
+    }
+
+    @Override
     public void onBackPressed() {
         if (getSupportFragmentManager().getBackStackEntryCount() > 0){
             getSupportFragmentManager().popBackStack();

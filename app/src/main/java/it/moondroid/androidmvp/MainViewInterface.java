@@ -11,5 +11,7 @@ public interface MainViewInterface {
 
     void showWelcome();
 
+    void showNoteList();
+
     void onBackPressed();
 }

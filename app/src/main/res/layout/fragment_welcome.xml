@@ -8,13 +8,30 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivityFragment">
 
-    <TextView
-        android:id="@+id/text_message"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world"
+        android:orientation="vertical"
+        android:gravity="center"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true">
+
+        <TextView
+            android:id="@+id/text_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/hello_world"  />
+
+        <Button
+            android:id="@+id/button_show_notes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/show_notes"
+            android:visibility="gone"/>
+
+    </LinearLayout>
+
 
     <Button
         android:id="@+id/button_login"

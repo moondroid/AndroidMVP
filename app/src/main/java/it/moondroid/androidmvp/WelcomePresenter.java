@@ -35,6 +35,10 @@ public class WelcomePresenter implements LoginInteractor.OnLogoutFinishedListene
         loginInteractor.logout(this);
     }
 
+    public void doShowNotes(){
+        EventBus.getDefault().post(new NavigationEvent(NavigationEvent.Destination.NOTES_LIST));
+    }
+
     @Override
     public void onLogoutSuccess() {
         welcomeView.setLogoutEnabled(true);

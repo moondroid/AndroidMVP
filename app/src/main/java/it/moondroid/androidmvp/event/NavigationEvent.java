@@ -5,7 +5,7 @@ package it.moondroid.androidmvp.event;
  */
 public class NavigationEvent {
 
-    public enum Destination {LOGIN_FORM, WELCOME, BACK};
+    public enum Destination {LOGIN_FORM, WELCOME, NOTES_LIST, BACK};
 
     public final Destination destination;
 

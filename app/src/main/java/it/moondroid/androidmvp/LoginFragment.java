@@ -1,6 +1,7 @@
 package it.moondroid.androidmvp;
 
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -22,11 +23,18 @@ public class LoginFragment extends Fragment implements LoginViewInterface {
         // Required empty public constructor
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
 
-        presenter = new LoginPresenter(this);
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        presenter = new LoginPresenter();
+        presenter.attachView(this);
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        presenter.detachView();
     }
 
     @Override

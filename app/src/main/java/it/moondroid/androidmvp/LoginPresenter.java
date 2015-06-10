@@ -6,39 +6,47 @@ import it.moondroid.androidmvp.event.NavigationEvent;
 /**
  * Created by Marco on 09/06/2015.
  */
-public class LoginPresenter implements LoginInteractor.OnLoginFinishedListener {
+public class LoginPresenter extends BasePresenter<LoginViewInterface>
+        implements LoginInteractor.OnLoginFinishedListener {
 
-    private LoginViewInterface loginView;
     private LoginInteractor loginInteractor;
 
-    public LoginPresenter(LoginViewInterface loginView) {
-        this.loginView = loginView;
+    public LoginPresenter() {
         this.loginInteractor = new LoginInteractor();
     }
 
     public void validateCredentials(String username, String password) {
-        loginView.setLoginEnabled(false);
-        loginView.showProgress();
-        loginInteractor.login(username, password, this);
+        if (isViewAttached()){
+            getView().setLoginEnabled(false);
+            getView().showProgress();
+            loginInteractor.login(username, password, this);
+        }
+
     }
 
     @Override
     public void onLoginSuccess() {
-        loginView.hideProgress();
-        EventBus.getDefault().post(new NavigationEvent(NavigationEvent.Destination.BACK));
+        if (isViewAttached()) {
+            getView().hideProgress();
+            EventBus.getDefault().post(new NavigationEvent(NavigationEvent.Destination.BACK));
+        }
     }
 
     @Override
     public void onUsernameError() {
-        loginView.hideProgress();
-        loginView.setLoginEnabled(true);
-        loginView.setUsernameError();
+        if (isViewAttached()) {
+            getView().hideProgress();
+            getView().setLoginEnabled(true);
+            getView().setUsernameError();
+        }
     }
 
     @Override
     public void onPasswordError() {
-        loginView.hideProgress();
-        loginView.setLoginEnabled(true);
-        loginView.setPasswordError();
+        if (isViewAttached()) {
+            getView().hideProgress();
+            getView().setLoginEnabled(true);
+            getView().setPasswordError();
+        }
     }
 }

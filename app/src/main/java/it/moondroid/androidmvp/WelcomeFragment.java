@@ -72,4 +72,9 @@ public class WelcomeFragment extends Fragment implements WelcomeViewInterface {
             }
         });
     }
+
+    @Override
+    public void setLogoutEnabled(boolean enabled) {
+        buttonLoginLogout.setEnabled(enabled);
+    }
 }

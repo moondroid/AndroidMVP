@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
@@ -13,6 +14,7 @@ import android.widget.ProgressBar;
 public class LoginFragment extends Fragment implements LoginViewInterface {
 
     private LoginPresenter presenter;
+    private Button btnLogin;
     private EditText username, password;
     private ProgressBar progressBar;
 
@@ -37,7 +39,8 @@ public class LoginFragment extends Fragment implements LoginViewInterface {
         password = (EditText)rootView.findViewById(R.id.password);
         progressBar = (ProgressBar) rootView.findViewById(R.id.progress);
 
-        rootView.findViewById(R.id.button_login).setOnClickListener(new View.OnClickListener() {
+        btnLogin = (Button)rootView.findViewById(R.id.button_login);
+        btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 presenter.validateCredentials(username.getText().toString(), password.getText().toString());
@@ -59,11 +62,13 @@ public class LoginFragment extends Fragment implements LoginViewInterface {
     }
 
     @Override
-    public void enableUsernameAndPassword(boolean enabled) {
+    public void setLoginEnabled(boolean enabled) {
         if (enabled){
+            btnLogin.setEnabled(true);
             username.setEnabled(true);
             password.setEnabled(true);
         }else {
+            btnLogin.setEnabled(false);
             username.setEnabled(false);
             password.setEnabled(false);
         }

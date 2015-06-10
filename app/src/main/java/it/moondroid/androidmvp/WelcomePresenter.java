@@ -6,7 +6,7 @@ import it.moondroid.androidmvp.event.NavigationEvent;
 /**
  * Created by Marco on 09/06/2015.
  */
-public class WelcomePresenter {
+public class WelcomePresenter implements LoginInteractor.OnLogoutFinishedListener {
 
     private WelcomeViewInterface welcomeView;
     private LoginInteractor loginInteractor;
@@ -31,7 +31,19 @@ public class WelcomePresenter {
     }
 
     public void doLogout(){
-        loginInteractor.logout();
+        welcomeView.setLogoutEnabled(false);
+        loginInteractor.logout(this);
+    }
+
+    @Override
+    public void onLogoutSuccess() {
+        welcomeView.setLogoutEnabled(true);
+        checkLoggedState();
+    }
+
+    @Override
+    public void onLogoutError() {
+        welcomeView.setLogoutEnabled(true);
         checkLoggedState();
     }
 }

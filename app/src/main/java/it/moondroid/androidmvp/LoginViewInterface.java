@@ -9,7 +9,7 @@ public interface LoginViewInterface {
 
     void hideProgress();
 
-    void enableUsernameAndPassword(boolean enabled);
+    void setLoginEnabled(boolean enabled);
 
     void setUsernameError();
 

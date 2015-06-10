@@ -11,10 +11,15 @@ public class LoginInteractor {
     private static boolean isLogged = false;
     private static String username = "";
 
-    public static interface OnLoginFinishedListener {
-        void onSuccess();
+    public interface OnLoginFinishedListener {
+        void onLoginSuccess();
         void onUsernameError();
         void onPasswordError();
+    }
+
+    public interface OnLogoutFinishedListener {
+        void onLogoutSuccess();
+        void onLogoutError();
     }
 
     public void login(final String username, final String password, final OnLoginFinishedListener listener) {
@@ -33,19 +38,19 @@ public class LoginInteractor {
                 if (!error){
                     LoginInteractor.isLogged = true;
                     LoginInteractor.username = username;
-                    listener.onSuccess();
+                    listener.onLoginSuccess();
                 }
             }
         }, 2000);
     }
 
-    public void logout(){
-        isLogged = false;
+    public void logout(final OnLogoutFinishedListener listener){
         new Handler().postDelayed(new Runnable() {
             @Override public void run() {
-                //TODO
+                isLogged = false;
+                listener.onLogoutSuccess();
             }
-        }, 0);
+        }, 2000);
     }
 
     public boolean isLogged(){

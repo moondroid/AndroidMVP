@@ -17,13 +17,13 @@ public class LoginPresenter implements LoginInteractor.OnLoginFinishedListener {
     }
 
     public void validateCredentials(String username, String password) {
-        loginView.enableUsernameAndPassword(false);
+        loginView.setLoginEnabled(false);
         loginView.showProgress();
         loginInteractor.login(username, password, this);
     }
 
     @Override
-    public void onSuccess() {
+    public void onLoginSuccess() {
         loginView.hideProgress();
         EventBus.getDefault().post(new NavigationEvent(NavigationEvent.Destination.BACK));
     }
@@ -31,14 +31,14 @@ public class LoginPresenter implements LoginInteractor.OnLoginFinishedListener {
     @Override
     public void onUsernameError() {
         loginView.hideProgress();
-        loginView.enableUsernameAndPassword(true);
+        loginView.setLoginEnabled(true);
         loginView.setUsernameError();
     }
 
     @Override
     public void onPasswordError() {
         loginView.hideProgress();
-        loginView.enableUsernameAndPassword(true);
+        loginView.setLoginEnabled(true);
         loginView.setPasswordError();
     }
 }

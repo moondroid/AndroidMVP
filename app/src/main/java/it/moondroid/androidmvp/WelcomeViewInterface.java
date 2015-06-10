@@ -13,4 +13,5 @@ public interface WelcomeViewInterface {
 
     void showLoginButton();
 
+    void setLogoutEnabled(boolean enabled);
 }
